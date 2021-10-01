@@ -1,0 +1,102 @@
+[
+    {
+        "id":1,
+        "name":"Sushi Octo",
+        "type": "cena",
+        "menu": "offer",
+        "price":35000,
+        "rate": 4.2,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/close-up-view-delicious-sushi-concept_23-2148678288.jpg"
+    },
+    {
+        "id":2,
+        "name":"Fish Cake",
+        "type": "cena",
+        "menu": "popular",
+        "price":45000,
+        "rate": 4.5,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/korean-fish-cake-vegetable-soup-table_1150-43010.jpg"
+    },
+    {
+        "id":3,
+        "name":"Tortitas de Chocolate",
+        "type": "postre",
+        "menu": "popular",
+        "price":33000,
+        "rate": 4.8,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/delicious-decorated-cookies-wooden-surface_181624-35284.jpg"
+    },
+    {
+        "id":4,
+        "name":"Hamburguesa Casera",
+        "type": "rapida",
+        "menu": "offer",
+        "price":25000,
+        "rate": 4.7,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/front-view-delicious-burger-assortment_23-2148868203.jpg"
+    },
+    {
+        "id":5,
+        "name":"Pollo frito",
+        "type": "rapida",
+        "menu": "popular",
+        "price":30000,
+        "rate": 4.5,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/crispy-fried-chicken-wooden-cutting-board_1150-20220.jpg"
+    },
+    {
+        "id":6,
+        "name":"Sand Witcher",
+        "type": "rapida",
+        "price":15000,
+        "menu": "popular",        
+        "rate": 4.7,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/italian-sandwiches-bruschetta-with-cheese-dry-tomatoes-basil_114579-19398.jpg"
+    },
+    {
+        "id":7,
+        "name":"Taco Tell",        
+        "type": "cena",
+        "menu": "offer",        
+        "price":20000,
+        "rate": 4.5,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/high-angle-tasty-tacos-wooden-table_23-2148629357.jpg"
+    },
+    {
+        "id":8,
+        "name":"Helado Cremoso",        
+        "type": "postre",
+        "menu": "offer",        
+        "price":17000,
+        "rate": 4.9,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://image.freepik.com/free-photo/chocolate-ice-cream-dessert_144627-8363.jpg"
+    },
+    {
+        "id":9,
+        "name":"Locro Vegano",        
+        "type": "almuerzo",
+        "menu": "offer",        
+        "price":13000,
+        "rate": 4.9,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://i0.wp.com/www.disfrutarosario.com/wp-content/uploads/2021/05/receta-locro-vegetariano.png?resize=750%2C451&ssl=1"
+    },
+    {
+        "id":10,
+        "name":"Vori Vori",        
+        "type": "almuerzo",
+        "menu": "popular",        
+        "price":12000,
+        "rate": 5.0,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pharetra euismod. Maecenas in fermentum purus. Nunc quis porttitor justo. Nam aliquet consequat neque, ultricies dignissim quam placerat vitae. Proin non convallis ipsum. ",
+        "preview":"https://1.bp.blogspot.com/-aoN0X-1DVAU/X9SGI7sDOBI/AAAAAAAAEvk/tNI4w7bymeQJT-JImgKq53vtAG-1rJE7QCLcBGAsYHQ/w1200-h630-p-k-no-nu/vori-vori-de-pollo-2.jpg"
+    }
+]

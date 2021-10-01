@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'widgets/cart_item.dart';
+import '../../global_controller/cart_controller.dart';
+import '../../pages/cart/widgets/checkout_review.dart';
+import '../../../utils/font_styles.dart';
+
+class CartPage extends StatefulWidget {
+  CartPage({Key? key}) : super(key: key);
+
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
+  Widget build(BuildContext context) {
+    final cart = context.watch<CartController>().cart.values.toList();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Cart'),
+        backgroundColor: Colors.white,
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_rounded)),
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: cart.length == 0
+            ? Center(
+                child: Text(
+                  "No elements",
+                  style: FontStyles.regular,
+                ),
+              )
+            : ListView.builder(
+                itemBuilder: (_, index) {
+                  final dish = cart[index];
+                  return CartItem(dish: dish);
+                },
+                itemCount: cart.length,
+              ),
+      ),
+      bottomNavigationBar: CheckoutReview(),
+    );
+  }
+}
