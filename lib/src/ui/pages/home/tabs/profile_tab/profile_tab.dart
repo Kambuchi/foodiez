@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiez/src/data/repositories/account_repository.dart';
 import 'package:provider/provider.dart';
 import '../../../../global_controller/notifications_controller.dart';
 import '../../../../../data/models/user.dart';
@@ -14,12 +16,11 @@ import '../../../../../utils/dialogs.dart';
 import '../../../../../utils/font_styles.dart';
 
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+  ProfileTab({Key? key}) : super(key: key);
 
   void _signOut(BuildContext context) async {
     final isOk = await Dialogs.confirm(context, title: 'Accion requerida');
     if (isOk!) {
-      Get.i.remove<User>();
       await Get.i.find<AutheticationRepository>().signOut();
       await Get.i
           .find<PreferencesRepository>()
@@ -32,7 +33,8 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Get.i.find<User>();
+  final user = FirebaseAuth.instance.currentUser;
+    // final user = Get.i.find<User>();
     return Container(
       color: CupertinoColors.systemGroupedBackground,
       child: ListView(
@@ -67,7 +69,7 @@ class ProfileTab extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Text(user.id),
+                child: Text(user!.uid),
               ),
               CupertinoFormRow(
                 prefix: Text(
@@ -77,7 +79,7 @@ class ProfileTab extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Text("${user.name} ${user.lastname}"),
+                child: Text(user.displayName!),
               ),
               CupertinoTextFormFieldRow(
                 prefix: Text(
@@ -91,16 +93,16 @@ class ProfileTab extends StatelessWidget {
                 style: FontStyles.normal.copyWith(color: Colors.black),
                 textAlign: TextAlign.right,
               ),
-              CupertinoFormRow(
-                prefix: Text(
-                  'Cumpleaños',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                child: Text(user.birthday.format),
-              ),
+              // CupertinoFormRow(
+              //   prefix: Text(
+              //     'Cumpleaños',
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              //   child: Text(user.birthday.format),
+              // ),
             ],
           ),
           CupertinoFormSection(

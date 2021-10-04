@@ -1,10 +1,14 @@
-import '../models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../responses/reset_password_response.dart';
+import '../responses/sign_in_response.dart';
 
 abstract class AutheticationRepository {
-  Future<String?> login(String email, String password);
-  Future<bool> register(User user);
-  Future<bool> sendResetToken(String email);
-  Future<void> saveToken(String token);
+  Future<SignInResponse> signInWithEmailAndPassword(
+    String email,
+    String password,
+  );
+  Future<ResetPasswordResponse> sendResetPasswordLink(String email);
+  Future<User?> get user;
+
   Future<void> signOut();
-  String? get token;
 }

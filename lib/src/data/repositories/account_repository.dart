@@ -1,5 +1,5 @@
-import '../models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AccountRepository {
-  Future<User?> get userInformation;
+  Future<User?> updateDisplayName(String value);
 }

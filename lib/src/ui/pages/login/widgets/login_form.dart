@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../helpers/get.dart';
 import 'package:provider/provider.dart';
 import '../../login/login_controller.dart';
 import '../../../global_widgets/input_text.dart';
 import '../../../global_widgets/rounded_button.dart';
-import '../../../../data/models/user.dart';
+import '../../../../data/responses/sign_in_response.dart';
 import '../../../../routes/routes.dart';
 import '../../../../utils/dialogs.dart';
 import '../../../../utils/colors.dart';
@@ -19,17 +18,36 @@ class LoginForm extends StatelessWidget {
   void _submit(BuildContext context) async {
     final controller = context.read<LoginController>();
     ProgressDialog.show(context);
-    final User? user = await controller.submit();
-    if (user == null) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-              title: Text('Error'),
-              content: Text(
-                "Invalid username or password",
-              )));
+    final response = await controller.submit();
+    if (response?.error != null) {
+      late String errorMessage = "";
+      switch (response?.error) {
+        case SignInError.networkRequestFailed:
+          errorMessage = "Se perdió la conexión a Internet";
+          break;
+        case SignInError.userDisabled:
+          errorMessage = "El usuario está deshabilitado";
+          break;
+        case SignInError.userNotFound:
+          errorMessage = "No se ha encontrado el usuario";
+          break;
+        case SignInError.wrongPassword:
+          errorMessage = "El password es incorrecto";
+          break;
+        case SignInError.tooManyRequests:
+          errorMessage = "Demasiadas solicitudes equivocadas";
+          break;
+        default:
+          errorMessage = "Error desconocido";
+          break;
+      }
+
+      Dialogs.alert(
+        context,
+        title: "ERROR",
+        description: errorMessage,
+      );
     } else {
-      Get.i.put<User>(user);
       Navigator.pushNamedAndRemoveUntil(
         context,
         Routes.HOME,
@@ -84,7 +102,7 @@ class LoginForm extends StatelessWidget {
             label: 'Ingresar',
             fullWidth: false,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-            onPressed:() => _submit(context),
+            onPressed: () => _submit(context),
           ),
         ],
       ),

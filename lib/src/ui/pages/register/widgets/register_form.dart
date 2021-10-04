@@ -4,6 +4,8 @@ import '../register_controller.dart';
 import '../../../global_widgets/custom_form.dart';
 import '../../../global_widgets/input_text.dart';
 import '../../../global_widgets/rounded_button.dart';
+import '../../../../data/responses/sign_up_response.dart';
+import '../../../../routes/routes.dart';
 import '../../../../utils/dialogs.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -14,28 +16,40 @@ class RegisterForm extends StatelessWidget {
     final isFormOk = controller.formKey.currentState!.validate();
     if (isFormOk) {
       ProgressDialog.show(context);
-      final isOk = controller.submit();
-      if (isOk == false) {
+      final response = await controller.submit();
+      if (response.error != null) {
+        late String content;
+        switch (response.error) {
+          case SignUpError.emailAlreadyInUse:
+            content = "Esta dirección de correo ya está utilizada";
+            break;
+          case SignUpError.weakPassword:
+            content = "El password es muy débil";
+            break;
+          case SignUpError.networkRequestFailed:
+            content = "Se perdió la conexión a Internet";
+            break;
+          default:
+            content = "Error desconocido";
+            break;
+        }
         Dialogs.alert(
           context,
           title: "ERROR",
-          description: "El registro falló :(",
+          description: content,
         );
       } else {
-        Dialogs.alert(
+        Navigator.pushNamedAndRemoveUntil(
           context,
-          title: "BUENAS NOTICIAS",
-          dissmisable: false,
-          description: "El registro fue exitoso!",
-          okText: "OK",
+          Routes.HOME,
+          (_) => true,
         );
-        Navigator.pop(context);
       }
     } else {
       Dialogs.alert(
         context,
         title: "ERROR",
-        description: "Campos inválidos",
+        description: "Campos no válidos",
       );
     }
   }
@@ -65,7 +79,9 @@ class RegisterForm extends StatelessWidget {
               onChanged: controller.onLastNameChanged,
               labelText: "Apellido",
               validator: (text) {
-                return text.trim().length > 1 ? null : "Apellido demasiado corto";
+                return text.trim().length > 1
+                    ? null
+                    : "Apellido demasiado corto";
               },
             ),
             SizedBox(
@@ -79,6 +95,41 @@ class RegisterForm extends StatelessWidget {
                 return text.contains('@') ? null : "Correo no válido";
               },
             ),
+            SizedBox(
+              height: 15,
+            ),
+            InputText(
+              prefixIcon: Icon(Icons.lock_outlined),
+              onChanged: controller.onPasswordChanged,
+              labelText: "Contraseña",
+              obscureText: true,
+              validator: (text) {
+                if (text.trim().length >= 6) {
+                  return null;
+                }
+                return "Password no válido";
+              },
+            ),
+            // SizedBox(
+            //   height: 15,
+            // ),
+            // Consumer(builder: (_, watch, __) {
+            //   return InputText(
+            //     prefixIcon: Icon(Icons.lock_outlined),
+            //     labelText: "Verificación de Password",
+            //     onChanged: controller.onVPasswordChanged,
+            //     obscureText: true,
+            //     validator: (text) {
+            //       if (controller.onPasswordChanged != text) {
+            //         return "Los passwords no coinciden";
+            //       }
+            //       if (text.trim().length >= 6) {
+            //         return null;
+            //       }
+            //       return "Password no coincide";
+            //     },
+            //   );
+            // }),
             SizedBox(
               height: 20,
             ),

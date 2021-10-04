@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodiez/src/data/responses/reset_password_response.dart';
+import 'package:foodiez/src/utils/email_validator.dart';
 import 'package:provider/provider.dart';
 import '../forgot_password_controller.dart';
 import '../../../global_widgets/input_text.dart';
@@ -11,20 +13,46 @@ class ForgotPasswordForm extends StatelessWidget {
 
   void _submit(BuildContext context) async {
     final controller = context.read<ForgotPasswordController>();
-    ProgressDialog.show(context);
-    final sent = await controller.submit();
-    Navigator.pop(context);
-    if (sent) {
-     await Dialogs.alert(
-        context,
-        title: "GOOD",
-        description: "Reset token has sended to ${controller.email}",
-        dissmisable: false,
-      );
+    if (isValidEmail(controller.email)) {
+      ProgressDialog.show(context);
+      final response = await controller.submit();
       Navigator.pop(context);
+      if (response == ResetPasswordResponse.ok) {
+        await Dialogs.alert(
+          context,
+          title: "GENIAL",
+          description:
+              "El correo de recuperación fue enviado a ${controller.email}",
+          dissmisable: false,
+        );
+        Navigator.pop(context);
+      } else {
+        String errorMessage = "";
+        switch (response) {
+          case ResetPasswordResponse.networkRequestFailed:
+            errorMessage = "Se perdió la conexión a Internet";
+            break;
+          case ResetPasswordResponse.userDisabled:
+            errorMessage = "El usuario está deshabilitado";
+            break;
+          case ResetPasswordResponse.userNotFound:
+            errorMessage = "No se ha encontrado el usuario";
+            break;
+          case ResetPasswordResponse.tooManyRequests:
+            errorMessage = "Demasiadas solicitudes equivocadas";
+            break;
+          default:
+            errorMessage = "Error desconocido";
+            break;
+        }
+        Dialogs.alert(
+          context,
+          title: "ERROR",
+          description: errorMessage,
+        );
+      }
     } else {
-      Dialogs.alert(context,
-          title: "ERROR", description: "Email: ${controller.email} not found");
+      Dialogs.alert(context, description: "El email no es válido");
     }
   }
 

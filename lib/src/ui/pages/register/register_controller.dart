@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
 import '../../global_widgets/custom_form.dart';
-import '../../../data/models/user.dart';
-import '../../../data/repositories/authentication_repository.dart';
+import '../../../data/inputs/sign_up.dart';
+import '../../../data/repositories/sign_up_repository.dart';
+import '../../../data/responses/sign_up_response.dart';
 import '../../../helpers/get.dart';
 
 class RegisterController extends ChangeNotifier {
-  String _email = '', _name = '', _lastname = '';
-  final _repository = Get.i.find<AutheticationRepository>();
+  String _email = '', _name = '', _lastname = '', _password = '';
+  final _repository = Get.i.find<SignUpRepository>();
 
   GlobalKey<CustomFormState> formKey = GlobalKey();
 
@@ -22,13 +23,22 @@ class RegisterController extends ChangeNotifier {
     _lastname = text;
   }
 
-  Future<bool> submit() async {
-    return await _repository.register(User(
-      id: DateTime.now().microsecondsSinceEpoch.toString(),
-      email: _email,
-      name: _name,
-      lastname: _lastname,
-      birthday: DateTime(1988, 12,1,),
-    ));
+  void onPasswordChanged(String text) {
+    _password = text;
+  }
+
+  Future<SignUpResponse> submit() async {
+    final response = await _repository.register(
+      SignUpData(
+        name: _name,
+        lastname: _lastname,
+        email: _email,
+        password: _password,
+      ),
+    );
+    // if (response.error == null) {
+    //   _s.setUser(response.user!);
+    // }
+    return response;
   }
 }
