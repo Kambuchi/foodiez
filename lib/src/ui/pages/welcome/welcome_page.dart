@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import '../../global_widgets/circle_button.dart';
 import '../../global_widgets/rounded_button.dart';
 import '../../../data/repositories/preferences_reposiory.dart';
+import '../../../data/providers/remote/google_sign_provider.dart';
 import '../../../helpers/get.dart';
 import '../../../routes/routes.dart';
 import '../../../utils/font_styles.dart';
@@ -94,7 +96,15 @@ class WelcomePage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   CircleButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final provider = Provider.of<GoogleSignProvider>(context,
+                          listen: false);
+                      await provider.googleLogin();
+                      if (provider.user != null) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.HOME, (route) => true);
+                      }
+                    },
                     iconPath: 'assets/pages/welcome/google.svg',
                     backgroundColor: Colors.redAccent,
                   ),

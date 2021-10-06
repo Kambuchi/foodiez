@@ -1,6 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiez/src/data/providers/remote/google_sign_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../global_widgets/circle_button.dart';
 import '../../../../routes/routes.dart';
 import '../../../../utils/font_styles.dart';
@@ -31,7 +32,14 @@ class SocialLogin extends StatelessWidget {
               backgroundColor: Colors.blue,
             ),
             CircleButton(
-              onPressed: () {},
+              onPressed: () async {
+                final provider =
+                    Provider.of<GoogleSignProvider>(context, listen: false);
+                await provider.googleLogin();
+                if(provider.user != null){
+                  Navigator.pushNamedAndRemoveUntil(context, Routes.HOME, (route) => true);
+                }
+              },
               iconPath: 'assets/pages/welcome/google.svg',
               backgroundColor: Colors.redAccent,
             ),

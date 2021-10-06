@@ -53,8 +53,8 @@ android {
         applicationId "com.arasait.foodiez"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName "1.0.1"
     }
 
     signingConfigs {
@@ -69,6 +69,16 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def project = "Foodiez"
+                    def SEP = "_"
+                    def buildType = "release"
+                    def version = variant.versionName
+                    def newApkName = project + SEP + buildType + SEP + version + ".apk"
+                    outputFileName = new File(newApkName)
+                }
+            }
         }
     }
 }

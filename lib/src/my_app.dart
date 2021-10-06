@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'helpers/dependency_injection.dart';
+import 'data/providers/remote/google_sign_provider.dart';
+import 'routes/pages.dart';
 import 'ui/global_controller/notifications_controller.dart';
 import 'ui/global_controller/cart_controller.dart';
-import 'package:provider/provider.dart';
-import 'routes/pages.dart';
 import 'utils/colors.dart';
 import 'utils/font_styles.dart';
 
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => GoogleSignProvider()),
         ChangeNotifierProvider<CartController>(create: (_) => CartController()),
         ChangeNotifierProvider<NotificationsController>(
             create: (_) => NotificationsController()),

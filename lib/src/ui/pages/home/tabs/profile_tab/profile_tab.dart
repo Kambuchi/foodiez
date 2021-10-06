@@ -2,10 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodiez/src/data/repositories/account_repository.dart';
+import 'package:foodiez/src/data/providers/remote/google_sign_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../../global_controller/notifications_controller.dart';
-import '../../../../../data/models/user.dart';
 import '../../../../../data/repositories/authentication_repository.dart';
 import '../../../../../data/repositories/preferences_reposiory.dart';
 import '../../../../../data/repositories/websocket_repository.dart';
@@ -20,12 +19,18 @@ class ProfileTab extends StatelessWidget {
 
   void _signOut(BuildContext context) async {
     final isOk = await Dialogs.confirm(context, title: 'Accion requerida');
+    final googleSign = Provider.of<GoogleSignProvider>(context, listen: false);
+    final _user = FirebaseAuth.instance;
     if (isOk!) {
+      if (googleSign.user != null) {
+        googleSign.logout();
+      }
       await Get.i.find<AutheticationRepository>().signOut();
       await Get.i
           .find<PreferencesRepository>()
           .setOnboardAndWelcomeReady(false);
       await Get.i.find<WebsocketRepository>().disconnect();
+      await _user.signOut();
       context.read<NotificationsController>().clear();
       Navigator.pushNamedAndRemoveUntil(context, Routes.LOGIN, (_) => true);
     }
@@ -33,7 +38,8 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser;
+    bool hasPhoto = user?.photoURL != null;
     // final user = Get.i.find<User>();
     return Container(
       color: CupertinoColors.systemGroupedBackground,
@@ -45,12 +51,15 @@ class ProfileTab extends StatelessWidget {
           Align(
             child: ClipOval(
               child: CachedNetworkImage(
-                  width: 200,
-                  color: Colors.transparent,
-                  colorBlendMode: BlendMode.srcOver,
-                  height: 200,
-                  imageUrl:
-                      'https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png'),
+                width: 200,
+                color: Colors.transparent,
+                colorBlendMode: BlendMode.srcOver,
+                fit: BoxFit.cover,
+                height: 200,
+                imageUrl: hasPhoto
+                    ? user!.photoURL!
+                    : 'https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png'
+              ),
             ),
           ),
           CupertinoFormSection.insetGrouped(
@@ -63,23 +72,13 @@ class ProfileTab extends StatelessWidget {
             children: [
               CupertinoFormRow(
                 prefix: Text(
-                  'ID',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                child: Text(user!.uid),
-              ),
-              CupertinoFormRow(
-                prefix: Text(
                   'Nombre',
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Text(user.displayName!),
+                child: Text(user!.displayName!),
               ),
               CupertinoTextFormFieldRow(
                 prefix: Text(
