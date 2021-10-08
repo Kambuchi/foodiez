@@ -15,7 +15,7 @@ class WebsocketProvider {
 
   _init() {
     _timer = Timer.periodic(
-      Duration(seconds: 10),
+      Duration(seconds: 60),
       (_) {
         final faker = Faker();
         final notification = AppNotification(

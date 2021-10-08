@@ -14,7 +14,10 @@ class SearchResult extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              Text('Platos Encontrados',style: FontStyles.title,),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text('Platos Encontrados',style: FontStyles.title.copyWith(fontSize: 21),),
+              ),
               Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(vertical: 10),
