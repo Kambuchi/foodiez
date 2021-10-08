@@ -33,7 +33,7 @@ class CheckoutReview extends StatelessWidget {
             Table(
               children: [
                 _buildTableRow('Subtotal', "\$ ${controller.subtotal}"),
-                _buildTableRow('Tax & Fees', "\$ ${controller.taxAndFee}"),
+                _buildTableRow('Impuestos y Tarifas', "\$ ${controller.taxAndFee}"),
                 _buildTableRow('Delivery', "\$ ${controller.delivery}"),
                 _buildTableRow('TOTAL', "\$ ${controller.subtotal}"),
               ],
@@ -46,7 +46,7 @@ class CheckoutReview extends StatelessWidget {
               child: CupertinoButton(
                 color: Colors.deepOrange,
                 child: Text(
-                  'Order Now',
+                  'Pedir Ahora',
                   style: FontStyles.title.copyWith(color: Colors.white),
                 ),
                 onPressed: () {},

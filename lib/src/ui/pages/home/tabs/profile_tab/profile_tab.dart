@@ -2,15 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodiez/src/data/providers/remote/google_sign_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../../global_controller/notifications_controller.dart';
+import '../../../../../data/providers/remote/google_sign_provider.dart';
 import '../../../../../data/repositories/authentication_repository.dart';
 import '../../../../../data/repositories/preferences_reposiory.dart';
 import '../../../../../data/repositories/websocket_repository.dart';
 import '../../../../../helpers/get.dart';
 import '../../../../../routes/routes.dart';
-import '../../../../../utils/date_format.dart';
 import '../../../../../utils/dialogs.dart';
 import '../../../../../utils/font_styles.dart';
 
@@ -32,7 +31,7 @@ class ProfileTab extends StatelessWidget {
       await Get.i.find<WebsocketRepository>().disconnect();
       await _user.signOut();
       context.read<NotificationsController>().clear();
-      Navigator.pushNamedAndRemoveUntil(context, Routes.LOGIN, (_) => true);
+      Navigator.pushNamedAndRemoveUntil(context, Routes.LOGIN, (  _) => true);
     }
   }
 

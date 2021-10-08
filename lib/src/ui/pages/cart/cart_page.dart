@@ -18,7 +18,7 @@ class _CartPageState extends State<CartPage> {
     final cart = context.watch<CartController>().cart.values.toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Cart'),
+        title: Text('Mi carrito'),
         backgroundColor: Colors.white,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
@@ -29,7 +29,7 @@ class _CartPageState extends State<CartPage> {
         child: cart.length == 0
             ? Center(
                 child: Text(
-                  "No elements",
+                  "No hay elementos",
                   style: FontStyles.regular,
                 ),
               )

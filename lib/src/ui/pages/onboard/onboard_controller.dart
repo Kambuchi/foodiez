@@ -6,12 +6,12 @@ class OnboardController extends ChangeNotifier {
   final List<OnboardItem> items = [
     OnboardItem(
       image: 'assets/pages/onboard/onboard1.svg',
-      title: 'Keep your Sunny Days!',
+      title: 'Bienvenido a nuestra app!',
       description: 'Quisque ac vehicula dui. Vivamus ac dapibus erat. Praesent mollis, leo vel iaculis volutpat, metus ligula efficitur orci, id auctor tellus lectus venenatis justo. Ut sem dolor, congue vel felis in, egestas feugiat lacus.',
     ),
     OnboardItem(
       image: 'assets/pages/onboard/onboard2.svg',
-      title: 'Leave us in the rain',
+      title: 'Disfruta y conoce',
       description: ' Duis blandit nunc id mauris volutpat tincidunt. Integer convallis finibus ipsum, a mattis mi auctor nec. Vestibulum vel justo semper, tincidunt sapien ut, ornare duis.',
     ),
     OnboardItem(

@@ -12,9 +12,10 @@ class OrderButton extends StatelessWidget {
     final cartController = context.read<CartController>();
 
     final controller = context.read<DishController>();
+    final isNotEmpty = controller.dish.counter > 0;
 
     final isInCart = cartController.isInCart(controller.dish);
-
+    if(isNotEmpty){
     cartController.addToCart(controller.dish);
     final SnackBar snackBar = SnackBar(
       content: Text(
@@ -24,6 +25,15 @@ class OrderButton extends StatelessWidget {
       backgroundColor: Colors.deepOrange,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }else{
+      final SnackBar snackBar = SnackBar(
+      content: Text(
+        'Agrega por lo menos un elemento',
+        textAlign: TextAlign.center,
+      ),
+      backgroundColor: Colors.redAccent);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override

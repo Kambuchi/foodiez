@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodiez/src/data/models/dish.dart';
-import 'package:foodiez/src/utils/font_styles.dart';
+import '../../../../../../data/models/dish.dart';
+import '../../../../../../utils/font_styles.dart';
 
 import 'dish_item.dart';
 

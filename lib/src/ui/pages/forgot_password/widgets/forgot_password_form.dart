@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodiez/src/data/responses/reset_password_response.dart';
-import 'package:foodiez/src/utils/email_validator.dart';
 import 'package:provider/provider.dart';
 import '../forgot_password_controller.dart';
 import '../../../global_widgets/input_text.dart';
 import '../../../global_widgets/rounded_button.dart';
+import '../../../../data/responses/reset_password_response.dart';
 import '../../../../utils/dialogs.dart';
+import '../../../../utils/email_validator.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
   const ForgotPasswordForm({Key? key}) : super(key: key);

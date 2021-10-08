@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodiez/src/routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'home_tab_controller.dart';
 import 'widgets/horizontal_dishes.dart';
 import 'widgets/categories_menu.dart';
 import 'widgets/search_button.dart';
 import '../../../../../data/models/dish.dart';
+import '../../../../../routes/routes.dart';
 import '../../../../../utils/font_styles.dart';
 
 class HomeTab extends StatefulWidget {
@@ -62,16 +62,18 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
               Builder(builder: (context) {
                 final List<Dish> popularMenu =
                     context.select<HomeTabController, List<Dish>>(
-                  (_) => _.popularMenu.where((e) => e.menu == 'popular').toList(),
+                  (_) =>
+                      _.popularMenu.where((e) => e.menu == 'popular').toList(),
                 );
                 return HorizontalDishes(
                   dishes: popularMenu,
                   title: "Menu Popular",
                   onViewAll: () {
-                   Navigator.pushNamed(context, Routes.SEARCH_RESULT, arguments: popularMenu);
+                    Navigator.pushNamed(context, Routes.SEARCH_RESULT,
+                        arguments: popularMenu);
                   },
                 );
-              }), 
+              }),
               SizedBox(height: 20),
               Builder(builder: (context) {
                 final List<Dish> offerMenu =
@@ -82,8 +84,8 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                   dishes: offerMenu,
                   title: "Ofertas de Hoy",
                   onViewAll: () {
-                   Navigator.pushNamed(context, Routes.SEARCH_RESULT, arguments: offerMenu);
-
+                    Navigator.pushNamed(context, Routes.SEARCH_RESULT,
+                        arguments: offerMenu);
                   },
                 );
               })

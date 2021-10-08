@@ -18,7 +18,7 @@ class DishDetail extends StatelessWidget {
     if (!controller.isFavorite) {
       final SnackBar snackBar = SnackBar(
         content: Text(
-          'Added to favorites',
+          'Añadido a favoritos',
           textAlign: TextAlign.center,
         ),
         backgroundColor: primaryColor,

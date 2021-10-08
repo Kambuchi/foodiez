@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodiez/src/data/models/dish.dart';
-import 'package:foodiez/src/routes/routes.dart';
 import 'package:provider/provider.dart';
 import '../home_tab_controller.dart';
 import '../../../../../../data/models/category.dart';
+import '../../../../../../data/models/dish.dart';
+import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/font_styles.dart';
 
 class CategoriesMenu extends StatelessWidget {

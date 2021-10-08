@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiez/src/data/providers/remote/facebook_sign_provider.dart';
 import 'package:provider/provider.dart';
 import 'helpers/dependency_injection.dart';
 import 'data/providers/remote/google_sign_provider.dart';
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => GoogleSignProvider()),
+        ChangeNotifierProvider(create: (_) => FacebookSignProvider()),
         ChangeNotifierProvider<CartController>(create: (_) => CartController()),
         ChangeNotifierProvider<NotificationsController>(
             create: (_) => NotificationsController()),

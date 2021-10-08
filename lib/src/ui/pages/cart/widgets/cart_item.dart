@@ -31,7 +31,7 @@ class CartItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10).copyWith(bottom: 5),
           child: IconSlideAction(
-            caption: 'Delete',
+            caption: 'Eliminar',
             color: Colors.red,
             icon: Icons.delete,
             onTap: () => _deleteItem(context),

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodiez/src/data/providers/remote/google_sign_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../global_widgets/circle_button.dart';
+import '../../../../data/providers/remote/google_sign_provider.dart';
 import '../../../../routes/routes.dart';
 import '../../../../utils/font_styles.dart';
 
