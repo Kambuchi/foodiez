@@ -31,7 +31,7 @@ class ProfileTab extends StatelessWidget {
       await Get.i.find<WebsocketRepository>().disconnect();
       await _user.signOut();
       context.read<NotificationsController>().clear();
-      Navigator.pushNamedAndRemoveUntil(context, Routes.LOGIN, (  _) => true);
+      Navigator.pushNamedAndRemoveUntil(context, Routes.LOGIN, (_) => false);
     }
   }
 

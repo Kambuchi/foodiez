@@ -50,7 +50,11 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    SearchButton(),
+                    Builder(
+                      builder: (_) {
+                        return SearchButton(menu: _.select<HomeTabController, List<Dish>>((value) => value.menu));
+                      }
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -63,7 +67,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                 final List<Dish> popularMenu =
                     context.select<HomeTabController, List<Dish>>(
                   (_) =>
-                      _.popularMenu.where((e) => e.menu == 'popular').toList(),
+                      _.menu.where((e) => e.menu == 'popular').toList(),
                 );
                 return HorizontalDishes(
                   dishes: popularMenu,
@@ -78,7 +82,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
               Builder(builder: (context) {
                 final List<Dish> offerMenu =
                     context.select<HomeTabController, List<Dish>>(
-                  (_) => _.popularMenu.where((e) => e.menu == 'offer').toList(),
+                  (_) => _.menu.where((e) => e.menu == 'offer').toList(),
                 );
                 return HorizontalDishes(
                   dishes: offerMenu,

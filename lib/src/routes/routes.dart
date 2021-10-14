@@ -10,4 +10,5 @@ abstract class Routes {
   static const CART = '/cart';
   static const SPLASH = '/splash';
   static const SEARCH_RESULT = '/search-result';
+  static const SEARCH_QUERY = '/search-query';
 }

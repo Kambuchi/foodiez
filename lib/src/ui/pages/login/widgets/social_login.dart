@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../data/providers/remote/facebook_sign_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../global_widgets/circle_button.dart';
 import '../../../../data/providers/remote/google_sign_provider.dart';
@@ -27,7 +28,16 @@ class SocialLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleButton(
-              onPressed: () {},
+              onPressed: () async {
+                 final provider = Provider.of<FacebookSignProvider>(
+                          context,
+                          listen: false);
+                      await provider.signInWithFacebook();
+                      if (provider.user != null) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.HOME, (_)=> false);
+                      }
+              },
               iconPath: 'assets/pages/welcome/facebook.svg',
               backgroundColor: Colors.blue,
             ),
@@ -37,7 +47,7 @@ class SocialLogin extends StatelessWidget {
                     Provider.of<GoogleSignProvider>(context, listen: false);
                 await provider.googleLogin();
                 if(provider.user != null){
-                  Navigator.pushNamedAndRemoveUntil(context, Routes.HOME, (route) => true);
+                  Navigator.pushNamedAndRemoveUntil(context, Routes.HOME, (_) => false);
                 }
               },
               iconPath: 'assets/pages/welcome/google.svg',

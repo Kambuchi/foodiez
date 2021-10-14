@@ -30,8 +30,8 @@ class HomeTabController extends ChangeNotifier {
     ),
   ];
 
-  List<Dish> _popularMenu = [];
-  List<Dish> get popularMenu => _popularMenu;
+  List<Dish> _menu = [];
+  List<Dish> get menu => _menu;
 
 
   void afterFirstLayour() {
@@ -39,7 +39,7 @@ class HomeTabController extends ChangeNotifier {
   }
 
   void _init() async {
-    _popularMenu = await _foodMenuRepository.getPopularMenu();
+    _menu = await _foodMenuRepository.getMenu();
     notifyListeners();
   }
 }

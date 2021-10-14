@@ -46,7 +46,7 @@ class CategoryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Dish> categoryMenu =
         context.select<HomeTabController, List<Dish>>(
-      (_) => _.popularMenu.where((e) => e.type == category.type).toList(),
+      (_) => _.menu.where((e) => e.type == category.type).toList(),
     );
     return Padding(
       padding: EdgeInsets.only(

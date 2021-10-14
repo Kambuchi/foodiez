@@ -51,7 +51,7 @@ class LoginForm extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(
         context,
         Routes.HOME,
-        (_) => true,
+        (_) => false,
       );
     }
   }

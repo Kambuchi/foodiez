@@ -59,8 +59,8 @@ class WelcomePage extends StatelessWidget {
                         label: 'Ingresar',
                         onPressed: () async {
                           await _setReady();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, Routes.LOGIN, (_) => true);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.LOGIN);
                         },
                       ),
                     ),
@@ -70,8 +70,8 @@ class WelcomePage extends StatelessWidget {
                         label: 'Registrarse',
                         onPressed: () async {
                           await _setReady();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, Routes.REGISTER, (_) => true);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.REGISTER);
                         },
                         textColor: Colors.black,
                         borderColor: Colors.black,
@@ -98,8 +98,8 @@ class WelcomePage extends StatelessWidget {
                           listen: false);
                       await provider.signInWithFacebook();
                       if (provider.user != null) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.HOME, (route) => true);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.HOME);
                       }
                     },
                     iconPath: 'assets/pages/welcome/facebook.svg',
@@ -111,8 +111,8 @@ class WelcomePage extends StatelessWidget {
                           listen: false);
                       await provider.googleLogin();
                       if (provider.user != null) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.HOME, (route) => true);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.HOME);
                       }
                     },
                     iconPath: 'assets/pages/welcome/google.svg',

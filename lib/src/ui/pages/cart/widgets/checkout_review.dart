@@ -1,13 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodiez/src/data/models/dish.dart';
 import 'package:provider/provider.dart';
 import '../../../global_controller/cart_controller.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/font_styles.dart';
 
-class CheckoutReview extends StatelessWidget {
-  const CheckoutReview({Key? key}) : super(key: key);
+CollectionReference users = FirebaseFirestore.instance.collection('usuarios');
+final user = FirebaseAuth.instance.currentUser;
 
+class CheckoutReview extends StatefulWidget {
+  CheckoutReview({Key? key}) : super(key: key);
+
+  @override
+  State<CheckoutReview> createState() => _CheckoutReviewState();
+}
+
+class _CheckoutReviewState extends State<CheckoutReview> {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<CartController>();
@@ -32,10 +43,11 @@ class CheckoutReview extends StatelessWidget {
           children: [
             Table(
               children: [
-                _buildTableRow('Subtotal', "\$ ${controller.subtotal}"),
-                _buildTableRow('Impuestos y Tarifas', "\$ ${controller.taxAndFee}"),
-                _buildTableRow('Delivery', "\$ ${controller.delivery}"),
-                _buildTableRow('TOTAL', "\$ ${controller.subtotal}"),
+                _buildTableRow('Subtotal', "Gs ${controller.subtotal}"),
+                _buildTableRow(
+                    'Impuestos y Tarifas', "Gs ${controller.taxAndFee}"),
+                _buildTableRow('Delivery', "Gs ${controller.delivery}"),
+                _buildTableRow('TOTAL', "Gs ${controller.total}"),
               ],
             ),
             SizedBox(
@@ -49,7 +61,9 @@ class CheckoutReview extends StatelessWidget {
                   'Pedir Ahora',
                   style: FontStyles.title.copyWith(color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  sendRequest(controller.cart.values, user!, controller);
+                },
               ),
             ),
           ],
@@ -70,5 +84,30 @@ class CheckoutReview extends StatelessWidget {
         textAlign: TextAlign.right,
       ),
     ]);
+  }
+
+  void sendRequest(
+    Iterable<Dish> request,
+    User user,
+    CartController controller,
+  ) async {
+    
+    await users.doc('${user.uid}').set({
+      'pedido': request.toString(),
+      'nombre': user.displayName,
+      'fecha': DateTime.now(),
+    });
+    for (var item in request) {
+      controller.deleteFromCart(item);
+    }
+    final SnackBar snackBar = SnackBar(
+      content: Text(
+        controller.hasItems ? 'Primero agregue su pedido' : 'Pedido Realizado!',
+        textAlign: TextAlign.center,
+      ),
+      backgroundColor: Colors.deepOrange,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Navigator.pop(context);
   }
 }

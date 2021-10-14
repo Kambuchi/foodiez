@@ -8,19 +8,32 @@ import '../../../../data/models/dish.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/font_styles.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends StatefulWidget {
   final Dish dish;
   const CartItem({Key? key, required this.dish}) : super(key: key);
 
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
   void _deleteItem(BuildContext context) {
     final cartController = context.read<CartController>();
-    cartController.deleteFromCart(dish);
+    cartController.deleteFromCart(widget.dish);
   }
 
   void _onCounterChanged(BuildContext context, int counter) {
-    final updatedDish = dish.updateCounter(counter);
+    final updatedDish = widget.dish.updateCounter(counter);
     final cartController = context.read<CartController>();
-    cartController.addToCart(updatedDish, updated: false);
+    if (counter == 0) {
+      cartController.deleteFromCart(widget.dish);
+      setState(() {});
+    } else {
+      cartController.addToCart(updatedDish, updated: false);
+      setState(() {
+        cartController.notifyListeners();
+      });
+    }
   }
 
   @override
@@ -59,7 +72,7 @@ class CartItem extends StatelessWidget {
                   bottomLeft: Radius.circular(10),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: dish.photo,
+                  imageUrl: widget.dish.photo,
                   width: 75,
                   height: 75,
                   fit: BoxFit.cover,
@@ -76,7 +89,7 @@ class CartItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    dish.name,
+                    widget.dish.name,
                     style: FontStyles.regular,
                   ),
                   SizedBox(
@@ -86,15 +99,15 @@ class CartItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$ ${dish.price}",
+                        "Gs ${widget.dish.price}",
                         style: FontStyles.title.copyWith(color: primaryColor),
                       ),
                       DishCounter(
-                        size: DishCounterSize.mini,
-                        initialValue: dish.counter,
-                        onChanged: (counter) =>
-                            _onCounterChanged(context, counter),
-                      ),
+                          size: DishCounterSize.mini,
+                          initialValue: widget.dish.counter,
+                          onChanged: (counter) {
+                            _onCounterChanged(context, counter);
+                          }),
                     ],
                   ),
                 ],

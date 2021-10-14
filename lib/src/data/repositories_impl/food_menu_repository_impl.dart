@@ -8,7 +8,7 @@ final FoodMenuProvider _provider;
   FoodMenuRepositoryImpl(this._provider);
 
   @override
-  Future<List<Dish>> getPopularMenu() {
+  Future<List<Dish>> getMenu() {
     return _provider.getPopularProvider();
 
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ui/pages/home/tabs/home_tab/widgets/search_query.dart';
 import '../ui/pages/home/tabs/home_tab/widgets/search_result.dart';
 import '../ui/pages/cart/cart_page.dart';
 import '../ui/pages/dish/dish_page.dart';
@@ -23,5 +24,6 @@ abstract class Pages {
     Routes.CART: (_) => CartPage(),
     // Routes.SPLASH: (_) => SplashPage(),
     Routes.SEARCH_RESULT: (_) => SearchResult(),
+    Routes.SEARCH_QUERY: (_) => SearchQuery(),
   };
 }

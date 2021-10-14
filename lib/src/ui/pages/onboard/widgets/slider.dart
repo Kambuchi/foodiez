@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodiez/src/utils/font_styles.dart';
 import 'package:provider/provider.dart';
 import '../onboard_controller.dart';
 import '../../../../data/models/onboard_item.dart';
@@ -25,6 +26,7 @@ class OnboardSlider extends StatelessWidget {
                   Text(
                     item.title,
                     textAlign: TextAlign.center,
+                    style: FontStyles.title,
                   ),
                   SizedBox(
                     height: 20,

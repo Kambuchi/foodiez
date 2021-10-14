@@ -11,17 +11,17 @@ class CartController extends ChangeNotifier {
 
   bool get hasItems => _cart.length > 0;
 
-  double get subtotal => double.parse(cart.values
+  int get subtotal => int.parse(cart.values
       .map((e) => e.price * e.counter)
       .toList()
       .reduce((value, element) => value + element)
-      .toStringAsFixed(2));
+      .toStringAsFixed(0));
 
-  double get taxAndFee =>
-      double.parse((subtotal * 0.1 + subtotal * 0.05).toStringAsFixed(2));
-  double get delivery => 2.0;
-  double get total =>
-      double.parse((subtotal + taxAndFee + delivery).toStringAsFixed(2));
+  int get taxAndFee =>
+      int.parse((subtotal * 0.1 + subtotal * 0.05).toStringAsFixed(0));
+  int get delivery => 5000;
+  int get total =>
+      int.parse((subtotal + taxAndFee + delivery).toStringAsFixed(0));
 
   int getDishCounter(Dish dish) {
     if (isInCart(dish)) {
