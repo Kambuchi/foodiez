@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodiez/src/data/models/dish.dart';
-import 'package:foodiez/src/helpers/get.dart';
 import 'package:foodiez/src/routes/routes.dart';
 import '../../../../../../utils/font_styles.dart';
 
@@ -33,7 +32,7 @@ class SearchButton extends StatelessWidget {
         ),
         onPressed: () async {
           await Navigator.pushNamed(context, Routes.SEARCH_QUERY,
-                        arguments: this.menu);
+                        arguments: menu);
         });
   }
 }

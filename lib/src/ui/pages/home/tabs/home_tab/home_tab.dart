@@ -8,6 +8,7 @@ import 'widgets/search_button.dart';
 import '../../../../../data/models/dish.dart';
 import '../../../../../routes/routes.dart';
 import '../../../../../utils/font_styles.dart';
+import '../../../../../utils/responsive.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final Responsive responsive = Responsive.of(context);
     return ChangeNotifierProvider<HomeTabController>(
       create: (_) {
         final controller = HomeTabController();
@@ -36,25 +38,26 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: responsive.dp(2)),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: responsive.dp(1.5)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Hola, Kambu'),
                     Text(
                       'Pide tu comida, quedate en casa',
-                      style: FontStyles.title.copyWith(fontSize: 22),
+                      style: FontStyles.title
+                          .copyWith(fontSize: responsive.dp(2.4)),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: responsive.dp(2.35),
                     ),
-                    Builder(
-                      builder: (_) {
-                        return SearchButton(menu: _.select<HomeTabController, List<Dish>>((value) => value.menu));
-                      }
-                    ),
+                    Builder(builder: (_) {
+                      return SearchButton(
+                          menu: _.select<HomeTabController, List<Dish>>(
+                              (value) => value.menu));
+                    }),
                     SizedBox(
                       height: 20,
                     ),
@@ -62,12 +65,11 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                 ),
               ),
               CategoriesMenu(),
-              SizedBox(height: 20),
+              SizedBox(height: responsive.dp(2)),
               Builder(builder: (context) {
                 final List<Dish> popularMenu =
                     context.select<HomeTabController, List<Dish>>(
-                  (_) =>
-                      _.menu.where((e) => e.menu == 'popular').toList(),
+                  (_) => _.menu.where((e) => e.menu == 'popular').toList(),
                 );
                 return HorizontalDishes(
                   dishes: popularMenu,

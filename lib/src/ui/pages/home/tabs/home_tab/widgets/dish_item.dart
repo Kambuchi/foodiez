@@ -35,7 +35,7 @@ class DishHomeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final formatter = NumberFormat('###,###');
+  final formatter = NumberFormat('###,###', 'es_PY');
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: Padding(
@@ -100,7 +100,7 @@ class DishHomeItem extends StatelessWidget {
                                   ),
                                 ]),
                           ),
-                          if(item.rate != null)
+                          if(item.rate == null)
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 7)
                                 .copyWith(left: 4),

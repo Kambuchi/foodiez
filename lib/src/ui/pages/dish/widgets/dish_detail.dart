@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../dish_controller.dart';
 import '../../home/home_controller.dart';
@@ -31,6 +32,8 @@ class DishDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final formatter = NumberFormat('###,###', 'es_PY');
+
     final controller = Provider.of<DishController>(context);
     final dish = controller.dish;
     return Container(
@@ -51,7 +54,7 @@ class DishDetail extends StatelessWidget {
                       style: FontStyles.title,
                     ),
                     Text(
-                      "\$ ${dish.price}",
+                      "\Gs ${formatter.format(dish.price)}",
                       style: FontStyles.title,
                     ),
                   ],

@@ -12,16 +12,15 @@ class _SearchQueryState extends State<SearchQuery> {
   late List<Dish> allMenu;
   String query = '';
 
-  
+  @override
+  void initState() {
+    super.initState();
+    menu = [];
+  }
 
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState(){
-      super.initState();
     allMenu = ModalRoute.of(context)!.settings.arguments as List<Dish>;
-    menu = allMenu;
-    }
     return Scaffold(
         body: SafeArea(
       child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodiez/src/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'widgets/cart_item.dart';
 import '../../global_controller/cart_controller.dart';
@@ -18,8 +19,13 @@ class _CartPageState extends State<CartPage> {
     final cart = context.watch<CartController>().cart.values.toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mi carrito'),
-        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
+        title: Text('Mi carrito',),
+        backgroundColor: primaryColor,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.arrow_back_rounded)),

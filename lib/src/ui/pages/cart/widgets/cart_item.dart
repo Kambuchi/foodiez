@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../global_controller/cart_controller.dart';
 import '../../../global_widgets/dish_counter.dart';
@@ -38,6 +39,8 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = NumberFormat('###,###', 'es_PY');
+
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       secondaryActions: [
@@ -99,7 +102,7 @@ class _CartItemState extends State<CartItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Gs ${widget.dish.price}",
+                        "Gs ${formatter.format(widget.dish.price)}",
                         style: FontStyles.title.copyWith(color: primaryColor),
                       ),
                       DishCounter(

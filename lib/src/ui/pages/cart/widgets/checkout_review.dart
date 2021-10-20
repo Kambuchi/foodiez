@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodiez/src/data/models/dish.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../global_controller/cart_controller.dart';
 import '../../../../utils/colors.dart';
@@ -21,6 +22,8 @@ class CheckoutReview extends StatefulWidget {
 class _CheckoutReviewState extends State<CheckoutReview> {
   @override
   Widget build(BuildContext context) {
+    final formatter = NumberFormat('###,###', 'es_PY');
+
     final controller = context.watch<CartController>();
     if (!controller.hasItems)
       return Container(
@@ -43,11 +46,15 @@ class _CheckoutReviewState extends State<CheckoutReview> {
           children: [
             Table(
               children: [
-                _buildTableRow('Subtotal', "Gs ${controller.subtotal}"),
                 _buildTableRow(
-                    'Impuestos y Tarifas', "Gs ${controller.taxAndFee}"),
-                _buildTableRow('Delivery', "Gs ${controller.delivery}"),
-                _buildTableRow('TOTAL', "Gs ${controller.total}"),
+                    'Subtotal', "Gs ${formatter.format(controller.subtotal)}"),
+                _buildTableRow('Impuestos y Tarifas',
+                    "Gs ${formatter.format(controller.taxAndFee)}"),
+                _buildTableRow(
+                    'Delivery', "Gs ${formatter.format(controller.delivery)}"),
+                _buildTableRow(
+                    'TOTAL', "Gs ${formatter.format(controller.total)}",
+                    isTotal: true),
               ],
             ),
             SizedBox(
@@ -72,18 +79,29 @@ class _CheckoutReviewState extends State<CheckoutReview> {
     );
   }
 
-  TableRow _buildTableRow(String label, String value) {
-    return TableRow(children: [
-      Text(
-        label,
-        style: TextStyle(color: Colors.white),
-      ),
-      Text(
-        value,
-        style: FontStyles.regular.copyWith(color: Colors.white),
-        textAlign: TextAlign.right,
-      ),
-    ]);
+  TableRow _buildTableRow(String label, String value, {bool isTotal = false}) {
+    return TableRow(
+      decoration: isTotal
+          ? BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.white, width: 1)))
+          : null,
+      children: [
+        Text(
+          label,
+          style: isTotal
+              ? TextStyle(fontWeight: FontWeight.w900, color: Colors.white)
+              : TextStyle(color: Colors.white),
+        ),
+        Text(
+          value,
+          style: isTotal
+              ? FontStyles.regular
+                  .copyWith(color: Colors.white, fontWeight: FontWeight.w900)
+              : FontStyles.regular.copyWith(color: Colors.white),
+          textAlign: TextAlign.right,
+        ),
+      ],
+    );
   }
 
   void sendRequest(
@@ -91,7 +109,6 @@ class _CheckoutReviewState extends State<CheckoutReview> {
     User user,
     CartController controller,
   ) async {
-    
     await users.doc('${user.uid}').set({
       'pedido': request.toString(),
       'nombre': user.displayName,
