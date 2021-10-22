@@ -35,12 +35,12 @@ class _MyAppState extends State<MyApp> {
             create: (_) => NotificationsController()),
       ],
       child: MaterialApp(
+        locale: Locale('es'),
         title: 'Foodiez',
         theme: ThemeData(
-          primaryColor: primaryColor,
-          accentColor: primaryColor,
+          primaryColor: primaryColor,         
           textTheme: FontStyles.textTheme,
-          primarySwatch: Colors.cyan,
+          primarySwatch: Palette.primaryPalette,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           cupertinoOverrideTheme: CupertinoThemeData(
             textTheme: CupertinoTextThemeData(

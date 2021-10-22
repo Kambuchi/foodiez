@@ -59,6 +59,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/logo.png
     - assets/pages/onboard/onboard1.svg
     - assets/pages/onboard/onboard2.svg
     - assets/pages/onboard/onboard3.svg

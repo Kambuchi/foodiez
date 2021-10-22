@@ -24,7 +24,7 @@ class _CartPageState extends State<CartPage> {
             bottom: Radius.circular(20),
           ),
         ),
-        title: Text('Mi carrito',),
+        title: Text('Mi carrito',style: TextStyle(color:Colors.white),),
         backgroundColor: primaryColor,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),

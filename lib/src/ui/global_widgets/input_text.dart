@@ -41,7 +41,7 @@ class InputTextState extends State<InputText> {
     super.initState();
     _obscureText = widget.obscureText;
 
-    WidgetsBinding.instance!.addPersistentFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       _formState = CustomForm.of(context);
       if (_formState != null) {
         _formState?.register(this);
